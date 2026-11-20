@@ -23,7 +23,8 @@
   --me:#f0a54a; --me-bg:#33261a; --room:#4fd1c0; --room-bg:#14302d; --ai:#a5a3ff; --ai-bg:#23224a;
   --warn:#f58b8b; --warn-bg:#3a1f22; --key-bg:#24313a; color-scheme:dark}
 body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.65}
-.wrap{max-width:980px;margin:0 auto;padding-block:32px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:44px}
+.wrap{max-width:980px;margin:0 auto;padding-block:32px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;grid-template-columns:minmax(0,1fr);gap:44px}
+.wrap>*{min-width:0}
 h1{font-size:30px;line-height:1.25;margin:0;text-wrap:balance;letter-spacing:-.01em}
 h2{font-size:20px;margin:0 0 4px;text-wrap:balance}
 .lead{color:var(--muted);margin:6px 0 0;max-width:62ch}
