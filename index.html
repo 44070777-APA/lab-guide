@@ -207,6 +207,7 @@ td:first-child{white-space:nowrap}
       <tr><td><code>🟨 카드 · G3 95/92 PASS</code></td><td>완성. 95점으로 합격 점수(92)를 넘었다</td><td>✅ 확정 / ↩️ 반려 / ⏸ 보류</td></tr>
       <tr><td><code>🟥 G3 미달</code></td><td>여러 번 고쳐도 합격 점수를 못 넘었다(대개 자료 부족)</td><td>자료를 더 보내거나 보류</td></tr>
       <tr><td><code>⚠️ 가상값 의심</code></td><td>홍길동, 010-0000-0000 같은 임시값이 섞였다</td><td>실제 값을 알려 주기</td></tr>
+      <tr><td><code>🩺 이상 발견</code></td><td>뒤에서 도는 프로그램이 멈췄다</td><td>Claude에게 "시스템 고쳐줘"</td></tr>
       <tr><td><code>⏳ 진행이 없습니다</code></td><td>AI가 한 시간 넘게 그대로다</td><td><code>/peek 번호</code>로 화면 보기</td></tr>
       <tr><td><code>📤 미발송</code></td><td>확정했지만 아직 안 보냈다고 기록돼 있다</td><td>보냈으면 <code>/sent 번호</code></td></tr>
     </tbody>
@@ -227,6 +228,9 @@ td:first-child{white-space:nowrap}
       <tr><td><code>/key 번호 enter</code></td><td>AI가 멈춰서 물어볼 때 대신 눌러 주기 (먼저 /peek)</td><td>질문 화면에서 멈췄을 때</td></tr>
       <tr><td><code>/sent 번호</code></td><td>직접 보냈다고 기록. 번호 없이 보내면 미발송 목록</td><td>보낸 직후</td></tr>
       <tr><td><code>/hold 번호</code></td><td>보류</td><td>나중에 할 때</td></tr>
+      <tr><td><code>/close 번호</code></td><td>과제 끝내기 (자료는 그대로 둠)</td><td>더 안 할 때</td></tr>
+      <tr><td><code>/health</code></td><td>시스템 건강 검진 (10분마다 자동, 고장·복구 때만 알림)</td><td>🩺 알림이 왔을 때</td></tr>
+      <tr><td><code>/guide</code></td><td>이 안내서 고정 주소 받기</td><td>잊었을 때</td></tr>
       <tr><td><code>/board</code> · <code>/accounts</code></td><td>모든 계정 현황 · 일하는 계정 상태</td><td>궁금할 때</td></tr>
       <tr><td><code>/ping</code></td><td>상황실이 살아 있는지 확인</td><td>답이 없을 때</td></tr>
     </tbody>
