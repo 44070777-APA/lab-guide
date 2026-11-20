@@ -1,0 +1,268 @@
+<title>연구실 상황실 사용법</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* 레이아웃: 위에서 아래로 "화면 → 흐름 → 생각의 체인 → 명령 → 하루 루틴" 순, 각 절은 한 장의 도해 */
+:root{
+  --bg:#f5f7f8; --panel:#ffffff; --ink:#18232d; --muted:#5b6a76; --line:#d9e0e5;
+  --me:#b45309; --me-bg:#fdf3e4;      /* 나(사용자) */
+  --room:#0f766e; --room-bg:#e3f4f1;  /* 상황실 */
+  --ai:#4338ca; --ai-bg:#ebeafd;      /* AI 에이전트 */
+  --warn:#b91c1c; --warn-bg:#fdecec;
+  --key-bg:#eef1f4;
+  --f-body:"IBM Plex Sans KR",system-ui,-apple-system,"Apple SD Gothic Neo",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#11181e; --panel:#18222a; --ink:#e4eaee; --muted:#9aa8b3; --line:#2b3841;
+  --me:#f0a54a; --me-bg:#33261a; --room:#4fd1c0; --room-bg:#14302d; --ai:#a5a3ff; --ai-bg:#23224a;
+  --warn:#f58b8b; --warn-bg:#3a1f22; --key-bg:#24313a; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#11181e; --panel:#18222a; --ink:#e4eaee; --muted:#9aa8b3; --line:#2b3841;
+  --me:#f0a54a; --me-bg:#33261a; --room:#4fd1c0; --room-bg:#14302d; --ai:#a5a3ff; --ai-bg:#23224a;
+  --warn:#f58b8b; --warn-bg:#3a1f22; --key-bg:#24313a; color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.65}
+.wrap{max-width:980px;margin:0 auto;padding-block:32px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:44px}
+h1{font-size:30px;line-height:1.25;margin:0;text-wrap:balance;letter-spacing:-.01em}
+h2{font-size:20px;margin:0 0 4px;text-wrap:balance}
+.lead{color:var(--muted);margin:6px 0 0;max-width:62ch}
+.sub{color:var(--muted);margin:0 0 16px;max-width:65ch}
+kbd,code{font-family:var(--f-mono);font-size:.86em;background:var(--key-bg);border:1px solid var(--line);border-radius:5px;padding:1px 6px;white-space:nowrap}
+.legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.tag{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:500;padding:2px 10px;border-radius:999px}
+.t-me{color:var(--me);background:var(--me-bg)} .t-room{color:var(--room);background:var(--room-bg)} .t-ai{color:var(--ai);background:var(--ai-bg)}
+
+/* 1. 한 창 화면 */
+.screen{display:grid;grid-template-columns:1.25fr 1fr;grid-template-rows:repeat(3,auto);gap:3px;background:var(--line);border:3px solid var(--line);border-radius:10px;overflow:hidden;font-size:13.5px}
+.pane{background:var(--panel);padding:12px 14px;min-width:0}
+.pane b{display:block;font-size:14px;margin-bottom:2px}
+.pane .m{font-family:var(--f-mono);font-size:12px;color:var(--muted);white-space:pre-wrap;margin-top:6px}
+.pane.main{grid-row:1/4;border-left:4px solid var(--ai)}
+.pane.r1{border-left:4px solid var(--room)} .pane.r2{border-left:4px solid var(--room)} .pane.r3{border-left:4px solid var(--me)}
+.keys{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;margin-top:14px}
+.key{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-size:14px}
+.key kbd{margin-right:4px}
+.key span{display:block;color:var(--muted);font-size:13px;margin-top:3px}
+
+/* 2. 과제 흐름 */
+.flow{display:grid;gap:0;counter-reset:s}
+.step{display:grid;grid-template-columns:44px 1fr;gap:12px;position:relative;padding-bottom:16px}
+.step:not(:last-child)::before{content:"";position:absolute;left:21px;top:40px;bottom:0;width:2px;background:var(--line)}
+.dot{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:15px;counter-increment:s}
+.dot::after{content:counter(s)}
+.s-me .dot{background:var(--me-bg);color:var(--me);border:2px solid var(--me)}
+.s-room .dot{background:var(--room-bg);color:var(--room);border:2px solid var(--room)}
+.s-ai .dot{background:var(--ai-bg);color:var(--ai);border:2px solid var(--ai)}
+.body{min-width:0;padding-top:2px}
+.body h3{font-size:15.5px;margin:0;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.body p{margin:2px 0 0;color:var(--muted);font-size:14px}
+.body .say{margin-top:6px;font-family:var(--f-mono);font-size:12.5px;background:var(--key-bg);border:1px solid var(--line);border-radius:6px;padding:7px 10px;overflow-x:auto;white-space:nowrap;color:var(--ink)}
+.chain{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.chain span{font-family:var(--f-mono);font-size:12px;padding:2px 8px;border-radius:5px;background:var(--ai-bg);color:var(--ai)}
+.chain i{font-style:normal;color:var(--muted)}
+
+/* 3. 생각의 체인 */
+.cot{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.c{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px 14px}
+.c .n{font-family:var(--f-mono);font-size:12px;color:var(--ai);letter-spacing:.04em}
+.c b{display:block;font-size:15px;margin:2px 0}
+.c p{margin:0;font-size:13.5px;color:var(--muted)}
+.c.stop{border-color:var(--warn);background:var(--warn-bg)}
+.c.stop .n{color:var(--warn)}
+
+/* 4. 명령표 */
+.tbl{overflow-x:auto;background:var(--panel);border:1px solid var(--line);border-radius:8px}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:560px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12.5px;color:var(--muted);font-weight:500;letter-spacing:.03em}
+tr:last-child td{border-bottom:0}
+td:first-child{white-space:nowrap}
+
+/* 5. 하루 루틴 */
+.day{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.slot{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px 14px;min-width:0}
+.slot .tm{font-family:var(--f-mono);font-size:13px;color:var(--room);font-variant-numeric:tabular-nums}
+.slot b{display:block;margin:2px 0 4px}
+.slot ul{margin:0;padding-left:18px;font-size:13.5px;color:var(--muted)}
+.slot.gold{background:var(--me-bg);border-color:transparent}
+.slot.gold .tm{color:var(--me)}
+
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.box{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:14px 16px}
+.box h3{margin:0 0 6px;font-size:15.5px}
+.box ul{margin:0;padding-left:18px;font-size:14px}
+.box li{margin:3px 0}
+.box.no{border-color:var(--warn)}
+.box.no h3{color:var(--warn)}
+.ask{display:grid;gap:8px;margin:0;padding:0;list-style:none}
+.ask li{display:grid;grid-template-columns:minmax(0,13em) 1fr;gap:10px;align-items:baseline}
+.ask code{justify-self:start}
+
+@media (max-width:760px){
+  .screen{grid-template-columns:1fr}.pane.main{grid-row:auto}
+  .cot{grid-template-columns:1fr 1fr}.day{grid-template-columns:1fr 1fr}.two{grid-template-columns:1fr}
+  .ask li{grid-template-columns:1fr;gap:2px}
+}
+@media (max-width:440px){.cot,.day{grid-template-columns:1fr}h1{font-size:25px}}
+</style>
+
+<div class="wrap">
+
+<header>
+  <h1>연구실 상황실 사용법</h1>
+  <p class="lead">한 창에서 작업과 현황을 같이 보고, 핸드폰으로 과제를 맡기고 확정하는 방법입니다. 판단과 발송은 사람이 하고, 준비는 AI가 합니다.</p>
+  <div class="legend">
+    <span class="tag t-me">● 내가 할 일</span>
+    <span class="tag t-room">● 상황실이 하는 일</span>
+    <span class="tag t-ai">● AI 에이전트가 하는 일</span>
+  </div>
+</header>
+
+<section>
+  <h2>한 창 화면 구성</h2>
+  <p class="sub">Claude 대화 창의 1번 탭입니다. 왼쪽에서 대화하고, 오른쪽 세 칸은 저절로 갱신됩니다.</p>
+  <div class="screen" role="img" aria-label="왼쪽 대화 칸, 오른쪽에 상황판·과제·남은 일 세 칸">
+    <div class="pane main"><b>이 대화 (작업)</b>여기에 입력합니다. "하던거 찾아서", "1-1, 2-추천대로"처럼 말하면 됩니다.<div class="m">❯ 1-1, 2-1</div></div>
+    <div class="pane r1"><b>① 전 계정 상황판</b>계정 9개의 에이전트 상태 · 3초마다<div class="m">✅ 완료  ⏳ 작업중  · 대기</div></div>
+    <div class="pane r2"><b>③ 과제·자료요청</b>과제 큐, 📝 자료 요청 대기, 진행 단계 · 10초마다<div class="m">#1 HUM-12월특강안내 [진행·G0·자료] 📝</div></div>
+    <div class="pane r3"><b>④ 남은 일</b>내가 할 일 체크리스트 · 끝나면 [✓]<div class="m">[✓] 상황실 전환
+[ ] HUM 접수</div></div>
+  </div>
+  <div class="keys">
+    <div class="key"><kbd>ctrl+b</kbd><kbd>z</kbd> 한 칸 크게<span>다시 누르면 분할로 돌아옴</span></div>
+    <div class="key"><kbd>ctrl+b</kbd><kbd>a</kbd> 상황판 팝업<span>전 계정 에이전트 현황</span></div>
+    <div class="key"><kbd>ctrl+b</kbd><kbd>]</kbd> 확인 필요한 다음 칸<span><kbd>[</kbd>는 이전 칸</span></div>
+    <div class="key">창 최대화 (초록 버튼)<span>칸이 좁아 글자가 잘릴 때</span></div>
+  </div>
+</section>
+
+<section>
+  <h2>과제 하나가 끝나기까지</h2>
+  <p class="sub">핸드폰 텔레그램(Lab Room 봇)에서 시작해서 핸드폰으로 끝납니다. 내가 하는 일은 주황색 단계뿐입니다.</p>
+  <div class="flow">
+    <div class="step s-me"><div class="dot"></div><div class="body">
+      <h3>과제 접수 <span class="tag t-me">나</span></h3>
+      <p>팀, 과제 이름, 마감, 읽을 사람(수요자), 문서 모양(양식) 다섯 칸을 한 줄로 보냅니다. 빈칸이 있으면 "빈칸이 있어요"라고 돌려보냅니다.</p>
+      <div class="say">/new HUM 12월특강안내 마감=2026-11-27 수요자=후마니타스학생·운영진 양식=A4안내문+짧은공지</div>
+    </div></div>
+    <div class="step s-me"><div class="dot"></div><div class="body">
+      <h3>시작 <span class="tag t-me">나</span></h3>
+      <p>"✅ G0 통과"(접수 완료라는 뜻) 답장의 <b>▶️ 바로 시작</b>을 누릅니다. 상황실이 여유 있는 계정을 골라 맡깁니다.</p>
+    </div></div>
+    <div class="step s-ai"><div class="dot"></div><div class="body">
+      <h3>자료 확인 <span class="tag t-ai">자료 확인 담당 AI</span></h3>
+      <p>글을 쓰기 전에 꼭 필요한 정보(날짜, 장소 등)가 다 있는지 먼저 봅니다. 빠졌으면 쓰지 않고, 번호로 고를 수 있는 질문을 핸드폰으로 보냅니다.</p>
+    </div></div>
+    <div class="step s-me"><div class="dot"></div><div class="body">
+      <h3>📝 자료 요청에 답하기 <span class="tag t-me">나</span></h3>
+      <p>번호와 사실만 적어 답합니다. 파일은 캡션에 과제 번호를 적어 보냅니다. 모르는 값은 비워 두세요.</p>
+      <div class="say">/say 1 1-1, 2: 12월 10일 15시, 본관 301호, 학생 50명, 구글폼 12/5까지</div>
+    </div></div>
+    <div class="step s-ai"><div class="dot"></div><div class="body">
+      <h3>글쓰기와 점검 <span class="tag t-ai">AI 5명이 나눠서</span></h3>
+      <div class="chain"><span>근거 모으기</span><i>→</i><span>글쓰기</span><i>→</i><span>양식 점검</span><i>→</i><span>사실 점검</span><i>→</i><span>점수 매기기</span></div>
+      <p>사실이 틀리면 처음부터, 모양만 틀리면 양식 점검부터 다시 합니다. 팀마다 정한 합격 점수(예: HUM 92점)를 넘어야 나에게 옵니다.</p>
+    </div></div>
+    <div class="step s-room"><div class="dot"></div><div class="body">
+      <h3>🟨 승인 카드 <span class="tag t-room">상황실</span></h3>
+      <p>점수와 함께 "무엇을 정할지 · 지금 상태 · 안 정하면 생기는 일"을 세 줄로 보냅니다. 홍길동 같은 임시 이름이 섞여 있으면 보낼 파일을 만들지 않고 알려 줍니다.</p>
+    </div></div>
+    <div class="step s-me"><div class="dot"></div><div class="body">
+      <h3>최종 확정 <span class="tag t-me">나</span></h3>
+      <p><b>✅ 확정</b> · <b>↩️ 반려</b>(사유를 한 줄로) · <b>⏸ 보류</b> 중 하나를 누릅니다. 확정은 언제나 사람만 합니다.</p>
+    </div></div>
+    <div class="step s-me"><div class="dot"></div><div class="body">
+      <h3>직접 보내고 기록 <span class="tag t-me">나</span></h3>
+      <p>상황실은 아무것도 밖으로 보내지 않습니다. 보낼 파일(발송본)을 직접 보낸 뒤 <b>📤 보냄 기록</b>을 누르거나 아래처럼 보냅니다. 3일 넘게 안 보낸 건은 묶음 알림으로 다시 알려 줍니다.</p>
+      <div class="say">/sent 1</div>
+    </div></div>
+  </div>
+</section>
+
+<section>
+  <h2>AI가 글쓰기 전에 하는 생각 순서</h2>
+  <p class="sub">모든 과제의 맨 처음에 이 순서로 생각합니다(“생각의 체인”). 모르는 걸 지어내지 않고, 필요한 것을 한 번에 모아서 묻습니다.</p>
+  <div class="cot">
+    <div class="c"><div class="n">① 목적</div><b>읽은 사람이 무엇을 하나</b><p>신청한다, 참석한다, 결재한다</p></div>
+    <div class="c"><div class="n">② 필수 항목</div><b>그 행동에 꼭 필요한 것</b><p>안내문이면 일시·장소·주제·대상·신청·문의</p></div>
+    <div class="c"><div class="n">③ 대조</div><b>자료에 있나 하나씩 확인</b><p>있으면 파일과 줄, 없으면 "없음"</p></div>
+    <div class="c stop"><div class="n">④ 판단</div><b>★필수가 없으면 멈춤</b><p>선택 항목만 없으면 [확인 필요]로 두고 진행</p></div>
+    <div class="c"><div class="n">⑤ 요청</div><b>번호만 고르게 묻기</b><p>선택지, 예상과 주의, 👉 추천, 💡. 사실은 빈칸으로</p></div>
+    <div class="c"><div class="n">⑥ 재대조</div><b>답을 받으면 ③부터 다시</b><p>다 차면 원고 작성 시작</p></div>
+  </div>
+</section>
+
+<section>
+  <h2>핸드폰에 이런 말이 오면</h2>
+  <p class="sub">상황실이 보내는 짧은 말의 뜻입니다. 모르는 말이 보이면 Claude에게 그대로 물어봐도 됩니다.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>보이는 말</th><th>뜻</th><th>내가 할 일</th></tr></thead>
+    <tbody>
+      <tr><td><code>✅ G0 통과</code></td><td>접수 완료. 빈칸 없이 잘 받았다</td><td>▶️ 바로 시작 누르기</td></tr>
+      <tr><td><code>⛔ G0 미통과</code></td><td>접수할 때 빈칸이 있다</td><td>빠진 칸을 채워 다시 보내기</td></tr>
+      <tr><td><code>📝 자료 요청</code></td><td>글을 쓰기 전에 꼭 필요한 정보가 빠졌다</td><td>번호와 사실을 <code>/say</code>로 답하기</td></tr>
+      <tr><td><code>⛔ 승인/질문 대기</code></td><td>AI가 멈춰서 무언가 물어본다</td><td>👀 먼저 보기 → 버튼으로 답하기</td></tr>
+      <tr><td><code>🟨 카드 · G3 95/92 PASS</code></td><td>완성. 95점으로 합격 점수(92)를 넘었다</td><td>✅ 확정 / ↩️ 반려 / ⏸ 보류</td></tr>
+      <tr><td><code>🟥 G3 미달</code></td><td>여러 번 고쳐도 합격 점수를 못 넘었다(대개 자료 부족)</td><td>자료를 더 보내거나 보류</td></tr>
+      <tr><td><code>⚠️ 가상값 의심</code></td><td>홍길동, 010-0000-0000 같은 임시값이 섞였다</td><td>실제 값을 알려 주기</td></tr>
+      <tr><td><code>⏳ 진행이 없습니다</code></td><td>AI가 한 시간 넘게 그대로다</td><td><code>/peek 번호</code>로 화면 보기</td></tr>
+      <tr><td><code>📤 미발송</code></td><td>확정했지만 아직 안 보냈다고 기록돼 있다</td><td>보냈으면 <code>/sent 번호</code></td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section>
+  <h2>텔레그램 명령</h2>
+  <p class="sub">자주 쓰는 순서대로 정리했습니다. 버튼이 있는 경우에는 버튼을 눌러도 됩니다.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>보내는 말</th><th>하는 일</th><th>언제</th></tr></thead>
+    <tbody>
+      <tr><td><code>/new 팀 이름 마감= 수요자= 양식=</code></td><td>과제 접수 (뒤에 <code>대외</code>를 붙이면 대외 건)</td><td>일이 생겼을 때</td></tr>
+      <tr><td><code>/go 번호</code></td><td>생산 시작</td><td>접수 뒤</td></tr>
+      <tr><td><code>/say 번호 내용</code></td><td>📝 질문에 답하기, AI에게 한마디 전하기</td><td>질문이 왔을 때</td></tr>
+      <tr><td><code>/q</code></td><td>승인 대기·진행 목록</td><td>아침·저녁</td></tr>
+      <tr><td><code>/peek 번호</code></td><td>AI가 지금 보고 있는 화면 보기</td><td>⛔ 대기 알림이 왔을 때</td></tr>
+      <tr><td><code>/key 번호 enter</code></td><td>AI가 멈춰서 물어볼 때 대신 눌러 주기 (먼저 /peek)</td><td>질문 화면에서 멈췄을 때</td></tr>
+      <tr><td><code>/sent 번호</code></td><td>직접 보냈다고 기록. 번호 없이 보내면 미발송 목록</td><td>보낸 직후</td></tr>
+      <tr><td><code>/hold 번호</code></td><td>보류</td><td>나중에 할 때</td></tr>
+      <tr><td><code>/board</code> · <code>/accounts</code></td><td>모든 계정 현황 · 일하는 계정 상태</td><td>궁금할 때</td></tr>
+      <tr><td><code>/ping</code></td><td>상황실이 살아 있는지 확인</td><td>답이 없을 때</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section>
+  <h2>추천 하루 사용법</h2>
+  <p class="sub">알림은 정해진 시각에 묶어서 옵니다. 배구부 지도 시간에는 알림을 모아 두었다가 끝난 뒤 보냅니다. 마감 3일 이내의 대외 문서만 예외로 바로 옵니다.</p>
+  <div class="day">
+    <div class="slot"><div class="tm">08:00 (평일)</div><b>아침 브리핑</b><ul><li>팀별 상태·마감 확인</li><li>📝 질문에 답하기</li><li>새 일은 <code>/new</code></li></ul></div>
+    <div class="slot"><div class="tm">13:00</div><b>승인 묶음</b><ul><li>카드 확정·반려</li><li>보낸 문서는 <code>/sent</code></li></ul></div>
+    <div class="slot gold"><div class="tm">월·목 18–21</div><b>배구부 지도 시간</b><ul><li>알림이 모였다가 끝난 뒤 옴</li><li>아무것도 안 해도 됨</li></ul></div>
+    <div class="slot"><div class="tm">일요일 20:00</div><b>주간 결산</b><ul><li>팀별 통계 확인</li><li>남은 카드 정리</li></ul></div>
+  </div>
+</section>
+
+<section class="two">
+  <div class="box">
+    <h3>Claude에게 이렇게 말하면 빠릅니다</h3>
+    <ul class="ask">
+      <li><code>하던거 찾아서 해줘</code><span>멈춘 작업을 찾아 이어서 진행</span></li>
+      <li><code>1-1, 2-추천대로</code><span>질문 번호와 선택지 번호로 답하기</span></li>
+      <li><code>추천대로 진행</code><span>질문 없이 추천안 실행</span></li>
+      <li><code>더 나은 방법 있어?</code><span>모르던 대안 중심으로 제안</span></li>
+      <li><code>기억해줘: …</code><span>다음 대화에도 적용</span></li>
+    </ul>
+  </div>
+  <div class="box no">
+    <h3>하지 말 것</h3>
+    <ul>
+      <li>"상황실 데몬" 탭을 다시 켜지 않기. 이제 Mac이 켜질 때 저절로 돌아가고, 둘이 겹치면 핸드폰 알림이 꼬입니다.</li>
+      <li><code>홍길동</code>, <code>010-0000-0000</code> 같은 임시값 넣지 않기. 모르면 비워 두기.</li>
+      <li>실제 학생 명단 같은 개인정보는 자료로 보내지 않기.</li>
+      <li>AI가 오래 멈추면 알림만 옵니다. 다른 계정으로 자동으로 넘기는 기능은 꺼 두었습니다. 켜고 싶으면 Claude에게 말하세요.</li>
+    </ul>
+  </div>
+</section>
+
+</div>
