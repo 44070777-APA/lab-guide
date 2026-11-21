@@ -1,0 +1,32 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="refresh" content="60"><title>연구실 상황판</title>
+<style>
+:root{--bg:#f7f7f5;--panel:#fff;--ink:#1d1d1b;--muted:#6b6b66;--line:#e3e2dc;--ok:#1f8a5b;--okbg:#e3f3ea;--warn:#a86400;--warnbg:#fbf0dc;--acc:#3b5bdb}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#17181a;--panel:#202226;--ink:#ecebe6;--muted:#9b9a94;--line:#33353a;--ok:#5fd39a;--okbg:#1d3529;--warn:#f0b35a;--warnbg:#3a2e1a;--acc:#8fa6ff}}
+:root[data-theme="dark"]{--bg:#17181a;--panel:#202226;--ink:#ecebe6;--muted:#9b9a94;--line:#33353a;--ok:#5fd39a;--okbg:#1d3529;--warn:#f0b35a;--warnbg:#3a2e1a;--acc:#8fa6ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 -apple-system,"Apple SD Gothic Neo","Noto Sans KR",sans-serif}
+main{max-width:920px;margin:0 auto;padding:28px 16px 56px;display:grid;grid-template-columns:minmax(0,1fr);gap:22px}
+h1{font-size:26px;margin:0}h2{font-size:17px;margin:8px 0 0}.sub{color:var(--muted);margin:4px 0 0}
+.health{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.t{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--acc);border-radius:10px;padding:12px 14px;display:grid;gap:8px;min-width:0}
+.t header{display:flex;flex-wrap:wrap;gap:8px;align-items:baseline}.badge{font-size:12.5px;color:var(--muted);border:1px solid var(--line);border-radius:99px;padding:1px 9px}
+.dd{margin-left:auto;font-weight:600;font-variant-numeric:tabular-nums}
+.stages{display:flex;flex-wrap:wrap;gap:4px}.st{font-size:12.5px;padding:2px 8px;border-radius:6px;background:var(--bg);color:var(--muted);border:1px solid var(--line)}
+.st.ok{background:var(--okbg);color:var(--ok);border-color:transparent}
+.meta{font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:10px}.flag{color:var(--warn);background:var(--warnbg);padding:1px 8px;border-radius:6px}
+.s-승인요청{border-left-color:var(--warn)}.s-승인됨,.s-종료{border-left-color:var(--ok);opacity:.8}
+.empty{color:var(--muted)}.how{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 16px}.how ol{margin:6px 0;padding-left:20px}
+a{color:var(--acc)}footer{color:var(--muted);font-size:13px}
+</style></head><body><main>
+<div><h1>연구실 상황판</h1><p class="sub">1분마다 새로 고침 · 내용이 바뀌면 5분 안에 반영 · 마지막 갱신 11/21 11:41</p></div>
+<div class="health">🩺 시스템: 정상</div>
+<section><h2>진행 중 (0)</h2><p class="empty">진행 중인 과제 없음. GitHub 이슈 "작업 지시"로 맡기면 1~2분 뒤 여기에 나옵니다.</p></section>
+<section class="how"><b>작업 지시하는 법</b><ol>
+<li>GitHub 앱이나 웹에서 lab-command-center 저장소 → Issues → New issue → <b>작업 지시 (연구실 문서)</b></li>
+<li>팀·과제 이름·마감·읽을 사람·양식을 채우고 "바로 시작"에 체크</li>
+<li>1~2분 뒤 이슈 댓글로 접수 번호가 오고, 이 상황판에 카드가 생깁니다</li>
+<li>📝 자료 요청이 오면 이슈에 댓글로 답합니다 · 확정은 핸드폰 버튼</li></ol>
+<a href="https://44070777-apa.github.io/lab-guide/">전체 사용 안내서</a></section>
+<section><h2>최근 끝난 과제</h2><article class="t s-종료"><header><b>#1 HUM · 12월특강안내</b><span class="badge">종료 · G0·자료</span><span class="dd">D-7</span></header><div class="stages"><span class="st ok">자료확인</span><span class="st">근거</span><span class="st">초안</span><span class="st">형식</span><span class="st">사실</span><span class="st">채점</span><span class="st">카드</span></div><div class="meta"></div></article></section>
+<footer>개인정보·자료 내용은 올리지 않습니다. 과제 번호·팀·이름·단계만 보입니다.</footer>
+</main></body></html>
