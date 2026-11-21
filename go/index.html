@@ -1,0 +1,15 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>상황판 여는 중</title>
+<style>body{margin:0;font:16px/1.6 -apple-system,"Apple SD Gothic Neo",sans-serif;background:#151618;color:#ecebe6;display:grid;place-items:center;min-height:100vh;padding:16px;text-align:center}a{color:#93a8ff}</style></head>
+<body><div><p id="m">⚡ 실시간 상황판 여는 중…</p></div>
+<script>
+// 비밀 열쇠(k)는 주소의 # 뒤에만 있어 이 서버로 전송되지 않습니다. 현재 상황판 주소(tunnel.json)를 읽어 바로 이동합니다.
+(async () => {
+  const p = new URLSearchParams(location.hash.slice(1)); const k = p.get('k'), c = p.get('c');
+  const m = document.getElementById('m');
+  if (!k) { m.textContent = '열쇠가 없는 링크입니다. 카톡이나 텔레그램으로 받은 링크를 눌러 주세요.'; return; }
+  try {
+    const t = await (await fetch('../tunnel.json?' + Date.now(), {cache:'no-store'})).json();
+    location.replace(t.url.replace(/\/$/, '') + '/' + k + '/lab' + (c ? '#c' + c : ''));
+  } catch (e) { m.innerHTML = 'Mac이 꺼져 있거나 연결이 끊겼어요. 잠시 뒤 다시 눌러 주세요.'; }
+})();
+</script></body></html>
