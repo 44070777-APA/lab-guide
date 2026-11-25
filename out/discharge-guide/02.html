@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; form-action 'none'; base-uri 'none'">
+<title>퇴원길잡이 사용자 시험</title>
+<style>
+:root{color-scheme:light;font-family:system-ui,sans-serif;color:#18302d;background:#edf4f2;line-height:1.65}
+*{box-sizing:border-box}body{margin:0}main{max-width:52rem;margin:auto;padding:1rem}
+header,section{padding:clamp(1rem,4vw,1.75rem);border-radius:1rem;margin-bottom:1rem;background:white}
+header{background:#123f38;color:white}h1,h2,h3,p{margin:0 0 .65rem}h1{font-size:clamp(1.85rem,6vw,2.7rem)}h2{font-size:1.35rem}
+nav{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem}nav a{color:white;padding:.55rem;border:1px solid #a1c6b9;border-radius:.45rem}
+aside{background:#fff4d9;padding:.8rem;border-radius:.5rem;color:#4e390b;margin-top:.8rem}
+ol{padding-left:1.5rem}li{margin-bottom:.5rem}small{display:block}fieldset{margin:1rem 0;padding:.75rem;border:1px solid #afc6c0;border-radius:.5rem;min-width:0}
+legend{font-weight:700}label{display:block;font-weight:600}input,select,textarea,button{font:inherit;color:inherit}
+input,select,textarea{display:block;width:100%;min-height:44px;border:1px solid #65817a;background:white;border-radius:.4rem;padding:.35rem .55rem;margin:.2rem 0 .6rem}
+input[type=checkbox]{display:inline-block;width:1.2rem;min-height:auto;vertical-align:middle;margin-right:.45rem}
+button{background:#12574a;color:white;border:0;border-radius:.45rem;padding:.6rem .9rem;min-height:44px;cursor:pointer}
+button.secondary{background:#e4eeeb;color:#18302d}button+button{margin-left:.35rem}
+:focus-visible{outline:3px solid #ae5c00;outline-offset:2px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,13rem),1fr));gap:.55rem 1rem}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;font-size:.92rem}
+caption{text-align:left;font-weight:700;margin:.8rem 0 .3rem}th,td{text-align:left;padding:.4rem;border-bottom:1px solid #ceded9;overflow-wrap:anywhere}thead{background:#e4eeeb}
+.template{background:#edf4f2;padding:.85rem;border-radius:.45rem}
+#message{min-height:1.65em;margin-top:.35rem}summary{cursor:pointer;font-weight:700;padding:.65rem 0;overflow-wrap:anywhere}
+</style>
+</head>
+<body>
+<main>
+<header>
+<p>진행자용 · 2026.11.27–11.29</p>
+<h1>퇴원길잡이 사용자 시험</h1>
+<p>보호자가 휴대폰에서 지역별 재활 병원 후보와 문의·공식 정보를 찾는 과정을 관찰합니다.</p>
+<nav aria-label="시험 순서"><a href="#interview">인터뷰</a><a href="#tasks">과제</a><a href="#survey">설문</a><a href="#record">기록</a><a href="#results">집계</a><a href="#report">보고 문장</a></nav>
+</header>
+<section id="interview">
+<h2>5분 인터뷰</h2>
+<p><strong>동의 문구</strong> “시제품 개선을 위한 익명 기록에 동의하시면 진행하겠습니다. 참여는 자발적이며 언제든 답변을 건너뛰거나 중단할 수 있습니다.”</p>
+<p>동의를 확인한 뒤 기록하세요. 보호자와 환자의 이름, 연락처, 진단명 등 식별·건강정보는 묻거나 적지 마세요. 참가자 코드는 개인 정보와 무관한 임의 코드로 정합니다.</p>
+<p>최근 경험을 기준으로 질문합니다. 경험이 없으면 건너뛰고, 답변 요지만 익명으로 기록합니다.</p>
+<ol>
+<li data-interview>가장 최근에 퇴원 후 이용할 병원을 알아보셨던 때는 어떤 상황이었나요?</li>
+<li data-interview>그때 처음에 무엇을 하셨나요?</li>
+<li data-interview>이후에는 어떤 순서로 알아보셨나요?</li>
+<li data-interview>병원에 관해 어떤 정보를 우선 확인하셨나요?</li>
+<li data-interview>가장 시간이 걸린 단계가 있었다면 무엇이었나요?</li>
+<li data-interview>병원에 문의할지 결정할 때 무엇을 참고하셨나요?</li>
+<li data-interview>그 과정에서 필요했던 정보 중 끝내 확인하지 못한 것이 있었나요?</li>
+</ol>
+</section>
+<section id="tasks">
+<h2>시제품 과제</h2>
+<p>가상 상황입니다. 퇴원 후 재활 병원을 알아보고 있습니다. 진행자는 실제로 후보가 표시되는 시험 지역을 미리 정해 알려 주세요. 같은 버전에서는 같은 지역과 시작 화면을 사용하세요.</p>
+<ol>
+<li data-task><strong>지역에서 후보 찾기</strong><br>“지정된 지역에서 문의를 고려할 병원 한 곳을 찾아 이름을 보여주세요.”<small>성공 조건은 지정 지역의 후보 목록을 띄우고 해당 병원 이름을 보여주는 것입니다.</small></li>
+<li data-task><strong>문의 정보 찾기</strong><br>“이 병원에 문의하려고 합니다. 시제품에 표시된 대표전화 번호를 보여주세요.”<small>선택한 병원 상세 화면에서 대표전화를 찾으면 성공입니다. 실제 전화는 걸지 않습니다.</small></li>
+<li data-task><strong>공식 정보 확인하기</strong><br>“이 병원에 관한 공식 정보 페이지를 열어 보여주세요.”<small>병원 상세 화면의 공식 링크를 통해 해당 페이지를 열면 성공입니다.</small></li>
+</ol>
+<p>과제를 읽어 준 직후부터 완료 또는 중단까지 초 단위로 잽니다. 120초 안에 도움 없이 기준을 충족하면 성공입니다. 120초에 종료하고, 그 전에 도움을 제공해 완료했다면 ‘도움 후 완료’로 기록하세요. 선행 과제를 끝내지 못하면 다음 과제의 시작 화면만 열어 주고 별도로 측정하세요.</p>
+<p>시작 전 접속 실패는 ‘시작 전 접속 실패’로 기록합니다. 시작 후 오류나 중단은 ‘미완료·중단’으로 기록하고 원인을 메모하세요. 미시도는 빈칸으로 둡니다.</p>
+</section>
+<section id="survey">
+<h2>사후 설문</h2>
+<p>과제 직후 참가자가 다음 문장에 응답합니다. 1 전혀 그렇지 않다 · 2 그렇지 않다 · 3 보통이다 · 4 그렇다 · 5 매우 그렇다. 판단하기 어려운 항목은 건너뛸 수 있습니다.</p>
+<ol id="questions">
+<li data-question>지정된 지역에서 병원 후보를 찾기 쉬웠다.</li>
+<li data-question>병원의 대표전화를 찾기 쉬웠다.</li>
+<li data-question>병원의 공식 정보 페이지를 찾기 쉬웠다.</li>
+<li data-question>이 화면에서 병원에 문의하기 전에 무엇을 확인할지 알 수 있었다.</li>
+<li data-question>비슷한 상황에서 이 시제품을 다시 사용하고 싶다.</li>
+</ol>
+<p><strong>선택 한 줄</strong> 사용하면서 기억에 남은 점이 있다면 한 줄로 말씀해 주세요.</p>
+</section>
+<section id="record">
+<h2>참가자 기록표</h2>
+<aside>기록은 이 탭 화면에서만 유지됩니다. 새로고침하거나 탭을 닫으면 사라집니다. 사흘간 같은 탭을 유지하고, 휴대폰이 탭을 자동으로 다시 불러올 수 있으므로 매일 회차를 마칠 때 익명 집계와 관찰 요약을 보고서에 옮기세요. 참가자에게는 시제품만 보여주세요.</aside>
+<form id="entry" autocomplete="off">
+<div class="grid">
+<label>시험일<select name="day" required><option value="">선택</option><option>11/27</option><option>11/28</option><option>11/29</option></select></label>
+<label>참가자 코드<input name="code" required pattern="[A-Za-z0-9_\-]+" maxlength="16" spellcheck="false" autocapitalize="off"></label>
+<label>시제품 버전<input name="version" required maxlength="30" spellcheck="false"></label>
+<label>시험 지역<input name="region" required maxlength="30"></label>
+</div>
+<label><input type="checkbox" name="consent" required>참가 동의 확인</label>
+<label><input type="checkbox" name="interview">인터뷰 진행</label>
+<label>익명 인터뷰 요약·첫 장애물<textarea name="notes" rows="3" maxlength="600"></textarea></label>
+<p>같은 버전에서는 참가자별 첫 회차만 기록하세요. 내부 점검 기록은 입력 대상에서 제외합니다.</p>
+<fieldset><legend>과제 성공·시간</legend><div id="task-inputs"></div></fieldset>
+<fieldset><legend>사후 설문 기록</legend><div id="ratings" class="grid"></div>
+<label>선택 한 줄 의견<input name="comment" maxlength="200"></label></fieldset>
+<button type="submit" id="save">기록 추가</button><button type="button" class="secondary" id="cancel" hidden>수정 취소</button>
+<p id="message" role="status"></p>
+</form>
+<div id="entries"></div>
+<noscript>집계와 참가자 기록을 사용하려면 브라우저에서 자바스크립트를 활성화하세요.</noscript>
+</section>
+<section id="results">
+<h2>결과 집계표</h2>
+<label>집계 버전<select id="version"><option value="">선택할 기록 없음</option></select></label>
+<p id="counts" aria-live="polite">기록을 추가하면 집계가 표시됩니다.</p>
+<p>성공률의 분모는 시작한 인원입니다. 시작 전 접속 실패와 미시도는 제외합니다. 시간 평균·중앙값에는 무도움 성공 기록을 사용합니다. 설문 평균과 4~5점 비율은 문항별 응답만 사용합니다. 분모가 없으면 ‘집계 불가’로 표시합니다.</p>
+<table><caption>과제별 결과</caption><thead><tr><th scope="col">과제</th><th scope="col">무도움 성공</th><th scope="col">성공자 평균 / 중앙값</th><th scope="col">시작 전 접속 실패</th></tr></thead><tbody id="task-results"></tbody></table>
+<table><caption>설문 문항별 결과</caption><thead><tr><th scope="col">문항</th><th scope="col">응답 수</th><th scope="col">평균 / 5점</th><th scope="col">4~5점 비율</th></tr></thead><tbody id="survey-results"></tbody></table>
+</section>
+<section id="report">
+<h2>모두의 창업 창업활동보고서 문장 틀</h2>
+<p>대괄호를 실제 기록으로 바꾸세요. 비율은 분자·분모와 함께 옮기고, 확인한 근거 파일명만 적습니다.</p>
+<h3>활동·피드백</h3>
+<p class="template">[실제 실시일]에 [시험 지역]에서 보호자 [참여 인원]명을 대상으로 퇴원길잡이 [버전]의 지역별 병원 후보 찾기, 대표전화 확인, 공식 정보 페이지 열기를 관찰하고 인터뷰와 사후 설문을 진행했다. [관찰한 장애물]은 [해당 인원]/[관찰 인원]명에게 나타났으며, [익명 피드백 요약]을 바탕으로 [수정한 항목 또는 다음 수정 계획]을 정리했다.</p>
+<h3>결과·근거</h3>
+<p class="template">120초 이내 무도움 성공 기준을 적용한 결과, [과제명]은 [성공 인원]/[시작 인원]명([성공률]%)이 성공했고 성공자 평균은 [평균 초]초, 중앙값은 [중앙값 초]초였다. [설문 문항]은 [유효 응답 인원]명 기준 평균 [평균 점수]/5점이었고 4~5점 응답은 [해당 인원]/[유효 응답 인원]명([비율]%)이었다. 시작 전 접속 실패는 [과제별 인원]이었다. 근거는 [익명 집계표·관찰 요약·버전이 표시된 시제품 화면]이다. [수정 후 재시험 결과 또는 미실시 여부]를 기록했다.</p>
+</section>
+</main>
+<script>
+'use strict';
+const byId = id => document.getElementById(id);
+const form = byId('entry');
+const records = [];
+const tasks = ['지역 후보', '대표전화', '공식 정보'];
+const questions = [...document.querySelectorAll('[data-question]')].map(item => item.textContent);
+const outcomes = { success:'무도움 성공', helped:'도움 후 완료', incomplete:'미완료·중단', timeout:'시간 한도 도달', access:'시작 전 접속 실패' };
+const versionFilter = byId('version');
+let editing = null;
+
+function options(values, empty) {
+  return '<option value="">' + empty + '</option>' +
+    values.map(([value, label]) => '<option value="' + value + '">' + label + '</option>').join('');
+}
+
+byId('task-inputs').innerHTML = tasks.map((task, i) => `
+  <fieldset><legend>${i + 1}. ${task}</legend><div class="grid">
+  <label>결과<select name="outcome${i}">${options(Object.entries(outcomes), '미시도')}</select></label>
+  <label>시간(초)<input name="seconds${i}" type="number" inputmode="numeric" min="0" max="120" step="1" disabled></label>
+  </div></fieldset>`).join('');
+byId('ratings').innerHTML = questions.map((question, i) => `
+  <label>${i + 1}. ${question}<select name="rating${i}">
+  ${options([1,2,3,4,5].map(score => [score, score]), '미응답')}</select></label>`).join('');
+
+function syncTimes() {
+  tasks.forEach((_, i) => {
+    const outcome = form.elements['outcome' + i].value;
+    const time = form.elements['seconds' + i];
+    time.disabled = !outcome || outcome === 'access' || outcome === 'timeout';
+    time.required = !time.disabled;
+    if (time.disabled) time.value = outcome === 'timeout' ? '120' : '';
+  });
+}
+
+function resetForm() {
+  form.reset();
+  editing = null;
+  byId('save').textContent = '기록 추가';
+  byId('cancel').hidden = true;
+  syncTimes();
+}
+
+form.addEventListener('change', syncTimes);
+byId('cancel').addEventListener('click', () => {
+  resetForm();
+  byId('message').textContent = '수정을 취소했습니다.';
+});
+form.addEventListener('submit', event => {
+  event.preventDefault();
+  const fields = Object.fromEntries(new FormData(form));
+  for (const key of ['code', 'version', 'region']) {
+    fields[key] = fields[key].trim();
+    if (!fields[key]) {
+      byId('message').textContent = '참가자 코드, 버전, 시험 지역을 확인하세요.';
+      form.elements[key].focus();
+      return;
+    }
+  }
+  if (records.some((record, i) => i !== editing &&
+      record.code.toLowerCase() === fields.code.toLowerCase() && record.version === fields.version)) {
+    byId('message').textContent = '같은 버전에 이 참가자 코드가 있습니다. 기존 기록의 수정 버튼을 사용하세요.';
+    return;
+  }
+  if (editing === null) records.push(fields);
+  else records[editing] = fields;
+  resetForm();
+  form.elements.day.value = fields.day;
+  form.elements.version.value = fields.version;
+  form.elements.region.value = fields.region;
+  renderEntries();
+  renderVersions(fields.version);
+  byId('message').textContent = '기록을 화면에 반영했습니다.';
+});
+
+function renderEntries() {
+  byId('entries').replaceChildren(...records.map((record, i) => {
+    const entry = document.createElement('details');
+    const summary = document.createElement('summary');
+    summary.textContent = [record.day, record.code, record.version, record.region].join(' · ');
+    const details = document.createElement('p');
+    details.textContent = tasks.map((task, index) => {
+      const outcome = record['outcome' + index];
+      const seconds = outcome === 'timeout' ? '120' : record['seconds' + index];
+      return task + ' ' + (outcomes[outcome] || '미시도') + (seconds ? ' (' + seconds + '초)' : '');
+    }).join(' · ');
+    const ratings = document.createElement('p');
+    ratings.textContent = '설문 ' + questions.map((_, index) => record['rating' + index] || '미응답').join(' / ');
+    const notes = document.createElement('p');
+    notes.textContent = [record.interview ? '인터뷰 진행' : '인터뷰 미진행', record.notes, record.comment].filter(Boolean).join(' · ');
+    const edit = document.createElement('button');
+    edit.type = 'button';
+    edit.className = 'secondary';
+    edit.textContent = '수정';
+    edit.onclick = () => {
+      resetForm();
+      editing = i;
+      for (const [name, value] of Object.entries(record)) {
+        const control = form.elements[name];
+        if (control.type === 'checkbox') control.checked = true;
+        else control.value = value;
+      }
+      syncTimes();
+      byId('save').textContent = '수정 반영';
+      byId('cancel').hidden = false;
+      byId('message').textContent = record.code + ' 기록을 수정 중입니다.';
+      form.elements.day.focus();
+    };
+    const remove = document.createElement('button');
+    remove.type = 'button';
+    remove.className = 'secondary';
+    remove.textContent = '삭제';
+    remove.onclick = () => {
+      if (!confirm('이 참가자 기록을 삭제할까요?')) return;
+      records.splice(i, 1);
+      if (editing === i) resetForm();
+      else if (editing !== null && editing > i) editing--;
+      renderEntries();
+      renderVersions(versionFilter.value);
+      byId('message').textContent = '기록을 삭제했습니다.';
+    };
+    entry.append(summary, details, ratings, notes, edit, remove);
+    return entry;
+  }));
+}
+
+function renderVersions(preferred) {
+  const versions = [...new Set(records.map(record => record.version))];
+  versionFilter.replaceChildren(...(versions.length ? versions : ['']).map(version =>
+    new Option(version || '선택할 기록 없음', version)));
+  if (versions.includes(preferred)) versionFilter.value = preferred;
+  calculate();
+}
+
+const unavailable = '집계 불가';
+const mean = values => values.reduce((sum, value) => sum + value, 0) / values.length;
+function median(values) {
+  const sorted = [...values].sort((a, b) => a - b);
+  const middle = Math.floor(sorted.length / 2);
+  return sorted.length % 2 ? sorted[middle] : (sorted[middle - 1] + sorted[middle]) / 2;
+}
+function ratio(count, total) {
+  return total ? count + '/' + total + ' (' + (100 * count / total).toFixed(1) + '%)' : unavailable;
+}
+function renderTable(id, rows) {
+  byId(id).replaceChildren(...rows.map(([label, ...values]) => {
+    const row = document.createElement('tr');
+    const heading = document.createElement('th');
+    heading.scope = 'row';
+    heading.textContent = label;
+    row.append(heading);
+    values.forEach(value => { row.insertCell().textContent = value; });
+    return row;
+  }));
+}
+
+function calculate() {
+  const group = records.filter(record => record.version === versionFilter.value);
+  byId('counts').textContent = group.length ?
+    '참여 기록 ' + group.length + '명 · 인터뷰 ' + group.filter(record => record.interview).length + '명' :
+    '기록을 추가하면 집계가 표시됩니다.';
+  renderTable('task-results', tasks.map((task, i) => {
+    const statuses = group.map(record => record['outcome' + i]);
+    const started = statuses.filter(status => status && status !== 'access').length;
+    const times = group.filter(record => record['outcome' + i] === 'success')
+      .map(record => Number(record['seconds' + i]));
+    const timing = times.length ? mean(times).toFixed(1) + '초 / ' + median(times).toFixed(1) + '초' : unavailable;
+    return [task, ratio(times.length, started), timing, statuses.filter(status => status === 'access').length + '명'];
+  }));
+  renderTable('survey-results', questions.map((_, i) => {
+    const scores = group.map(record => Number(record['rating' + i])).filter(score => score >= 1 && score <= 5);
+    return [i + 1, scores.length + '명', scores.length ? mean(scores).toFixed(2) : unavailable,
+      ratio(scores.filter(score => score >= 4).length, scores.length)];
+  }));
+}
+versionFilter.addEventListener('change', calculate);
+calculate();
+</script>
+</body>
+</html>
